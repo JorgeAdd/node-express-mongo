@@ -16,7 +16,7 @@ const swaggerOptions = {
       version: "1.0.0"
     }
   },
-  apis: ['index.js']
+  apis: ['./routes/login.js']
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -24,29 +24,10 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 
-/**
- * @swagger
- * /login:
- *  post:
- *    description: API to log into the app.
- *    parameters:
- *    - name: mail
- *      description: user email
- *      required: true
- *      type: string
- *    - name: password
- *      description: user password
- *      required: true
- *      type: string
- *    responses:
- *      200:
- *        description: Successful login.
- *      401:
- *        description: Failed to log in.
- */
 app.use(bodyParser.urlencoded({ extended: false }))
 app.post('/login', bodyParser.json())
 app.use(require('./routes/login'))
+app.use(require('./routes/courses'))
 
 app.listen(3001, function () {
   console.log('Example app listening on port 3001!')
